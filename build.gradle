@@ -19,6 +19,14 @@ repositories {
 }
 
 dependencies {
+	// redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	// mysql
+	implementation 'mysql:mysql-connector-java'
+	// jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
