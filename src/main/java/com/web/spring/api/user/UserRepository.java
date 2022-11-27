@@ -1,10 +1,11 @@
-package com.web.spring.api.User;
+package com.web.spring.api.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,14 +19,14 @@ public class UserRepository {
         return em.find(UserEntity.class, id);
     }
 
-    public List<UserEntity> findBySid(String sid) {
-        return em.createQuery("select u from User u where u.sid = :sid", UserEntity.class)
+    public Optional<UserEntity> findBySid(String sid) {
+        return Optional.ofNullable(em.createQuery("select u from User u where u.sid = :sid", UserEntity.class)
                 .setParameter("sid", sid)
-                .getResultList();
+                .getSingleResult());
     }
 
     public List<UserEntity> findAll() {
-        return em.createQuery("select m from Member m", UserEntity.class)
+        return em.createQuery("select u from User u", UserEntity.class)
                 .getResultList();
     }
 }

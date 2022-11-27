@@ -1,28 +1,24 @@
-package com.web.spring.api.User;
+package com.web.spring.api.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
-
-// @Service
-// @Transactional(readOnly = true)
-// @RequiredArgsConstructor
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class UserService {
-    /*
+
     private final UserRepository userRepository;
 
-    /** sign up
+    /** sign up */
     @Transactional
-    public Long join(UserDao user) {
-
-        validateDuplicateMember(user); //중복 회원 검증
+    public Long join(UserEntity user) {
         userRepository.save(user);
         return user.getId();
     }
-
+    /*
     private void validateDuplicateMember(UserDao user) {
         List<UserDao> findMembers = userRepository.findBySid(user.getSid());
         if (!findMembers.isEmpty()) {
