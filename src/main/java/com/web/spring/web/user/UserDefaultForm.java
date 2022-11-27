@@ -1,4 +1,4 @@
-package com.web.spring.web.User;
+package com.web.spring.web.user;
 
 import lombok.Data;
 

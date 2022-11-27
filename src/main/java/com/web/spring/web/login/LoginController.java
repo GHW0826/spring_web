@@ -2,6 +2,7 @@ package com.web.spring.web.login;
 
 import com.web.spring.api.login.LoginService;
 import com.web.spring.api.session.MemorySessionManager;
+import com.web.spring.api.session.SessionConst;
 import com.web.spring.api.user.UserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -31,21 +33,25 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("loginForm") LoginDefaultForm form,
-                        BindingResult bindingResult, HttpServletResponse response) {
+    public String login(
+            @Valid @ModelAttribute LoginDefaultForm form,
+            BindingResult bindingResult,
+            @RequestParam(defaultValue = "/") String redirectURL,
+            HttpServletRequest request) {
+
+        if (bindingResult.hasErrors())
+            return "login/loginForm";
         if (bindingResult.hasErrors())
             return "login/loginForm";
 
-        UserEntity loginMember = loginService.login(form.getSid(), form.getPassword());
-        if (loginMember == null) {
+        UserEntity loginUser = loginService.login(form.getSid(), form.getPassword());
+        if (loginUser == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "login/loginForm";
         }
-        //로그인 성공 처리 TODO
-        //쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 모두 종료)
-        Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
-        response.addCookie(idCookie);
 
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
         return "redirect:/";
     }
 

@@ -1,8 +1,7 @@
 package com.web.spring.api.user;
 
 
-import com.web.spring.web.User.UserDefaultForm;
-import lombok.AllArgsConstructor;
+import com.web.spring.web.user.UserDefaultForm;
 import lombok.Getter;
 import lombok.Setter;
 

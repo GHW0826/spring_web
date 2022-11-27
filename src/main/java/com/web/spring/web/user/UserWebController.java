@@ -1,4 +1,4 @@
-package com.web.spring.web.User;
+package com.web.spring.web.user;
 
 import com.web.spring.api.user.UserEntity;
 import com.web.spring.api.user.UserService;
@@ -27,9 +27,9 @@ public class UserWebController {
 
     @PostMapping("/join")
     public String save(@Valid @ModelAttribute("user") UserDefaultForm user, BindingResult result) {
-        if (result.hasErrors()) {
+        if (result.hasErrors())
             return "users/joinUserForm";
-        }
+
         log.info(user.toString());
         userService.join(new UserEntity(user));
         return "redirect:/";
