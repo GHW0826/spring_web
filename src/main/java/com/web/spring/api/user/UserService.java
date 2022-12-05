@@ -16,7 +16,7 @@ public class UserService {
     @Transactional
     public Long join(UserEntity user) {
         userRepository.save(user);
-        return user.getId();
+        return user.getUid();
     }
     /*
     private void validateDuplicateMember(UserDao user) {

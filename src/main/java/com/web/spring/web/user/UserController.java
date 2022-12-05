@@ -16,8 +16,8 @@ import javax.validation.Valid;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/users")
-public class UserWebController {
+@RequestMapping("/web/users")
+public class UserController {
     private final UserService userService;
 
     @GetMapping("/join")

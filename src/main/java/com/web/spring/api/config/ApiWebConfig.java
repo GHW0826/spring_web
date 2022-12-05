@@ -1,9 +1,8 @@
-package com.web.spring.web.config;
+package com.web.spring.api.config;
 
 import com.web.spring.api.interceptor.LoginAuthApiInterceptor;
 import com.web.spring.web.argumentresolver.LoginAuthArgumentResolver;
 import com.web.spring.web.interceptor.LogInterceptor;
-import com.web.spring.web.interceptor.LoginAuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -12,15 +11,28 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class ApiWebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LogInterceptor())
+                .order(1)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/css/**", "/*.ico", "/error");
 
+        /*
         registry.addInterceptor(new LoginAuthInterceptor())
-                .order(3)
-                .addPathPatterns("/web/**")
+                .order(2)
+                .addPathPatterns("/api/**")
                 .excludePathPatterns("/css/**", "/*.ico", "/error")
-                .excludePathPatterns("/web", "/web/users/join", "/web/login", "/web/logout");
+                .excludePathPatterns("/", "/users/join", "/login", "/logout");
+
+         */
+
+        registry.addInterceptor(new LoginAuthApiInterceptor())
+                .order(2)
+                .addPathPatterns("/api/**")
+                .excludePathPatterns("/css/**", "/*.ico", "/error")
+                .excludePathPatterns("/api", "/api/users/join", "/api/login", "/api/logout");
     }
 
     @Override
@@ -28,3 +40,4 @@ public class WebConfig implements WebMvcConfigurer {
         resolvers.add(new LoginAuthArgumentResolver());
     }
 }
+

@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/my-page")
+@RequestMapping("/web")
 public class MyPageWebController {
 
-    @GetMapping
+    @GetMapping("/my-page")
     public String mypage(@LoginAuth UserEntity loginUser, Model model) {
         model.addAttribute("user", loginUser);
         return "users/my-page/my-page";
