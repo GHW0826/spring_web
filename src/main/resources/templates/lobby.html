@@ -18,6 +18,10 @@
                     th:onclick="|location.href='@{/web/my-page}'|">
                 마이 페이지
             </button>
+            <button class="w-100 btn btn-secondary btn-lg" type="button"
+                    th:onclick="|location.href='@{/web/board/upload}'|">
+                게시물 업로드
+            </button>
         </div>
         <div class="col">
             <form th:action="@{/web/logout}" method="post">

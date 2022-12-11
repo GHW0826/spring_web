@@ -14,7 +14,7 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         String requestURI = request.getRequestURI();
-        log.info("인증 체크 인터셉터 실행 {}", requestURI);
+        log.info("Auth Check Interceptor Execute {}", requestURI);
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute(SessionConst.LOGIN_USER) == null) {
