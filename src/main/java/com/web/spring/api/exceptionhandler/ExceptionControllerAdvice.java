@@ -18,17 +18,20 @@ public class ExceptionControllerAdvice {
         return new ErrorResult("BAD", e.getMessage());
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(UserException.class)
     public ResponseEntity<ErrorResult> userExHandle(UserException e) {
         log.error("[exceptionHandle] ex", e.getMessage());
         ErrorResult errorResult = new ErrorResult("USER-EX", e.getMessage());
         return new ResponseEntity<>(errorResult, HttpStatus.BAD_REQUEST);
     }
 
+    /*
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler
     public ErrorResult exHandle(Exception e) {
         log.error("[exceptionHandle] ex", e.getMessage());
-        return new ErrorResult("EX", "내부 오류");
+        return new ErrorResult("EX", "INTERNAL_SERVER_ERROR");
     }
+
+     */
 }

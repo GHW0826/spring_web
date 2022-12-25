@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/join")
-    public String addForm(@ModelAttribute("user") UserDefaultForm member) {
+    public String addUserForm(@ModelAttribute("user") UserDefaultForm user) {
         return "users/joinUserForm";
     }
 
@@ -32,6 +32,6 @@ public class UserController {
 
         log.info(user.toString());
         userService.join(new UserEntity(user));
-        return "redirect:/";
+        return "redirect:/web";
     }
 }

@@ -24,32 +24,31 @@ import java.util.Optional;
 public class LoginController {
 
     private final LoginService loginService;
-    private final MemorySessionManager memorySessionManager;
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("loginForm") LoginDefaultForm form) {
-        return "login/loginForm";
+    public String loginForm(@ModelAttribute("loginUserForm") LoginDefaultForm form) {
+        return "login/loginUserForm";
     }
 
     @PostMapping("/login")
     public String login(
-            @Valid @ModelAttribute("loginForm") LoginDefaultForm form,
+            @Valid @ModelAttribute("loginUserForm") LoginDefaultForm form,
             BindingResult bindingResult,
             @RequestParam(defaultValue = "/web") String redirectURL,
             HttpServletRequest request) {
 
         if (bindingResult.hasErrors())
-            return "login/loginForm";
+            return "login/loginUserForm";
 
-        Optional<UserEntity> loginUser = loginService.login(form.getSid(), form.getPassword());
-        if (loginUser.get() == null) {
+        UserEntity loginUser = loginService.login(form.getSid(), form.getPassword()).get();
+        if (loginUser == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            return "login/loginForm";
+            return "login/loginUserForm";
         }
 
         log.info("after check");
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_USER, loginUser.get());
+        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
         log.info("before return");
         return "redirect:/web";
     }
