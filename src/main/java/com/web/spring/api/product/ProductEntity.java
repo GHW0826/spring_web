@@ -32,8 +32,7 @@ public class ProductEntity {
     @Column(name = "stock_quantity")
     private Integer stockQuantity;
 
-    public ProductEntity(String productName, Brand brand,
-                         Integer price, Category category, Integer stockQuantity) {
+    public ProductEntity(String productName, Brand brand, Integer price, Category category, Integer stockQuantity) {
         this.productName = productName;
         this.brand = brand;
         this.price = price;
@@ -49,6 +48,14 @@ public class ProductEntity {
         this.stockQuantity = defaultForm.getStockQuantity();
     }
 
+    public ProductEntity (RegisterProductRequest request) {
+        this.productName = request.getProductName();
+        this.brand = request.getBrand();
+        this.price = request.getPrice();
+        this.category = request.getCategory();
+        this.stockQuantity = request.getStockQuantity();
+    }
+
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
     }
@@ -60,6 +67,55 @@ public class ProductEntity {
         }
         this.stockQuantity = restStock;
     }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class RegisterProductRequest {
+        private String productName;
+        private Brand brand;
+        private Integer price;
+        private Category category;
+        private Integer stockQuantity;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class RegisterProductResponse {
+        @NotEmpty
+        private Long id;
+        @NotEmpty
+        private String productName;
+        @NotEmpty
+        private Brand brand;
+        @NotEmpty
+        private Integer price;
+        @NotEmpty
+        private Category category;
+        @NotEmpty
+        private Integer stockQuantity;
+
+        public RegisterProductResponse (Long productId, RegisterProductRequest request) {
+            this.id = productId;
+            this.productName = request.productName;
+            this.brand = request.brand;
+            this.price = request.price;
+            this.category = request.category;
+            this.stockQuantity = request.stockQuantity;
+        }
+    }
+    @Data
+    @NoArgsConstructor
+    public static class deleteProductResponse {
+        @NotEmpty
+        private Long id;
+
+        public deleteProductResponse (Long productId) {
+            this.id = productId;
+        }
+    }
+
 
     @Data
     @NoArgsConstructor

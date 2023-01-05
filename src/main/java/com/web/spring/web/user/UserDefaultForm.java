@@ -8,6 +8,7 @@ public class UserDefaultForm {
     private String sid;
     private String password;
     private String email;
+    private UserAddressForm address;
 }
 
 

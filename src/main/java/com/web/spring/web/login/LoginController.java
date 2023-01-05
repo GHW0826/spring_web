@@ -1,9 +1,11 @@
 package com.web.spring.web.login;
 
+import com.web.spring.api.address.AddressService;
 import com.web.spring.api.login.LoginService;
 import com.web.spring.api.session.MemorySessionManager;
 import com.web.spring.api.session.SessionConst;
 import com.web.spring.api.user.UserEntity;
+import com.web.spring.api.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import java.util.Optional;
 public class LoginController {
 
     private final LoginService loginService;
+    private final UserService userService;
+    private final AddressService addressService;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginUserForm") LoginDefaultForm form) {

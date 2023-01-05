@@ -1,5 +1,7 @@
 package com.web.spring.web.user;
 
+import com.web.spring.api.address.AddressEntity;
+import com.web.spring.api.address.AddressService;
 import com.web.spring.api.user.UserEntity;
 import com.web.spring.api.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,8 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
 
+    private final AddressService addressService;
+
     @GetMapping("/join")
     public String addUserForm(@ModelAttribute("user") UserDefaultForm user) {
         return "users/joinUserForm";
@@ -31,7 +35,9 @@ public class UserController {
             return "users/joinUserForm";
 
         log.info(user.toString());
-        userService.join(new UserEntity(user));
+        UserEntity nweUser = new UserEntity(user);
+        userService.join(nweUser);
+        addressService.registerAddress(new AddressEntity(nweUser, user.getAddress()));
         return "redirect:/web";
     }
 }

@@ -20,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(3)
                 .addPathPatterns("/web/**")
                 .excludePathPatterns("/css/**", "/*.ico", "/error")
-                .excludePathPatterns("/web", "/web/users/join", "/web/login", "/web/logout");
+                .excludePathPatterns("/web", "/web/users/join", "/web/login", "/web/logout", "/web/jusoPopup");
     }
 
     @Override

@@ -17,11 +17,18 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
+
+    @Transactional
+    public void updateProductApi(Long productId, ProductEntity.RegisterProductRequest requset) {
+        productRepository.updateProductByRequestApi(productId, requset);
+    }
+
     @Transactional
     public Long registerProduct(ProductEntity product) {
         productRepository.save(product);
         return product.getId();
     }
+
     @Transactional
     public Optional<ProductEntity> findById(Long productId) {
         return productRepository.findById(productId);

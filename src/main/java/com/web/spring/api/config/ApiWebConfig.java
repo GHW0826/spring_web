@@ -28,11 +28,14 @@ public class ApiWebConfig implements WebMvcConfigurer {
 
          */
 
+        /*
         registry.addInterceptor(new LoginAuthApiInterceptor())
                 .order(2)
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/css/**", "/*.ico", "/error")
                 .excludePathPatterns("/api", "/api/users/join", "/api/login", "/api/logout");
+
+         */
     }
 
     @Override

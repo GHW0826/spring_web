@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ProductEntityJPATest {
 
     @Autowired
-    ProductJPAService productJPAService;
+    ProductJpaService productJPAService;
     @Autowired
-    ProductJPARepository productJPARepository;
+    ProductJpaRepository productJPARepository;
 
     @Test
     public void registerProductJPA() throws Exception {

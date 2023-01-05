@@ -10,8 +10,8 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class ProductJPAService {
-    private final ProductJPARepository productJPARepository;
+public class ProductJpaService {
+    private final ProductJpaRepository productJPARepository;
 
     @Transactional
     public Long registerProduct(ProductEntity product) {

@@ -34,6 +34,10 @@ public class ProductRepository {
         return updateProduct(productEntity.getId(), productEntity.getProductName(), productEntity.getBrand(), productEntity.getPrice(), productEntity.getCategory(), productEntity.getStockQuantity());
     }
 
+    public int updateProductByRequestApi(Long productId,ProductEntity.RegisterProductRequest requset) {
+        return updateProduct(productId, requset.getProductName(), requset.getBrand(), requset.getPrice(), requset.getCategory(), requset.getStockQuantity());
+    }
+
     public int updateProduct(Long productId, String productName, Brand brand, Integer price, Category category, Integer stockQuantity) {
         return em.createQuery("update Product p " +
                                         "set p.productName = :productName, " +
